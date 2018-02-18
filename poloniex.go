@@ -104,7 +104,7 @@ func (b *Poloniex) GetOrderBook(market, cat string, depth int) (orderBook OrderB
 // GetOrderTrades is used to get returns all trades involving a given order
 // orderNumber: order number.
 func (b *Poloniex) GetOrderTrades(orderNumber string) (tradeOrderTransaction []TradeOrderTransaction, err error) {
-	r, err := b.client.doCommand("returnOrderTrades", map[string]string{"orderNumber": orderNumber})
+	r, err := b.client.doCommand("returnOrderTrades", map[string]string{"orderNumber": orderNumber}) 
 	if err != nil {
 		return
 	}
