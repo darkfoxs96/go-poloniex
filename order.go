@@ -27,3 +27,14 @@ type OpenOrder struct {
 	Amount      float64 `json:"amount,string"`
 	Total       float64 `json:"total,string"`
 }
+
+type OrderStatus struct {
+	Status         string  `json:"status"` // 'Open'
+	Rate           float64 `json:"rate,string"`
+	Amount         float64 `json:"amount,string"`
+	CurrencyPair   string  `json:"currencyPair"`
+	Date           string  `json:"date"`
+	Total          float64 `json:"total,string"`
+	Type           string  `json:"type"` // 'buy' or 'sell'
+	StartingAmount float64 `json:"startingAmount,string"`
+}

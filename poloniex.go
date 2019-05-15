@@ -104,7 +104,7 @@ func (b *Poloniex) GetOrderBook(market, cat string, depth int) (orderBook OrderB
 // GetOrderTrades is used to get returns all trades involving a given order
 // orderNumber: order number.
 func (b *Poloniex) GetOrderTrades(orderNumber string) (tradeOrderTransaction []TradeOrderTransaction, err error) {
-	r, err := b.client.doCommand("returnOrderTrades", map[string]string{"orderNumber": orderNumber}) 
+	r, err := b.client.doCommand("returnOrderTrades", map[string]string{"orderNumber": orderNumber})
 	if err != nil {
 		return
 	}
@@ -246,7 +246,7 @@ func (b *Poloniex) Sell(pair string, rate float64, amount float64, tradeType str
 
 func (b *Poloniex) GetOpenOrders(pair string) (openOrders map[string][]OpenOrder, err error) {
 	openOrders = make(map[string][]OpenOrder)
-	r, err := b.client.doCommand("returnOpenOrders", map[string]string{"currencyPair":pair})
+	r, err := b.client.doCommand("returnOpenOrders", map[string]string{"currencyPair": pair})
 	if err != nil {
 		return
 	}
@@ -264,8 +264,28 @@ func (b *Poloniex) GetOpenOrders(pair string) (openOrders map[string][]OpenOrder
 	return
 }
 
+func (b *Poloniex) GetOrderStatus(orderID int) (orderStatus *OrderStatus, err error) {
+	orderStatusCont := &struct {
+		Result map[string]*OrderStatus `json:"result"`
+	}{}
+	r, err := b.client.doCommand("returnOrderStatus", map[string]string{"orderNumber": strconv.Itoa(orderID)})
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(r, orderStatusCont)
+	if err != nil {
+		return
+	}
+
+	for _, v := range orderStatusCont.Result {
+		return v, nil
+	}
+	return
+}
+
 func (b *Poloniex) CancelOrder(orderNumber string) error {
-	_, err := b.client.doCommand("cancelOrder", map[string]string{"orderNumber":orderNumber})
+	_, err := b.client.doCommand("cancelOrder", map[string]string{"orderNumber": orderNumber})
 	if err != nil {
 		return err
 	}
