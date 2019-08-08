@@ -21,12 +21,13 @@ type Orderb struct {
 */
 
 type OpenOrder struct {
-	OrderNumber int     `json:"orderNumber,string"`
-	Type        string  `json:"type"`
-	Rate        float64 `json:"rate,string"`
-	Amount      float64 `json:"amount,string"`
-	Total       float64 `json:"total,string"`
-	Date        string  `json:"date"`
+	OrderNumber     int     `json:"orderNumber,string"`
+	Type            string  `json:"type"`
+	Rate            float64 `json:"rate,string"`
+	Amount          float64 `json:"startingAmount,string"`
+	AmountRemaining float64 `json:"amount,string"`
+	Total           float64 `json:"total,string"`
+	Date            string  `json:"date"`
 }
 
 type OrderStatus struct {
